@@ -44,6 +44,7 @@ class MoonrakerClient(WebsocketClient):
         port: int = 7125,
         api_key: str | None = None,
         ssl: bool = False,
+        client_ssl: bool | None = None,
         loop: AbstractEventLoop = None,
         timeout: int = WEBSOCKET_CONNECTION_TIMEOUT,
         session: aiohttp.ClientSession = None,
@@ -60,7 +61,7 @@ class MoonrakerClient(WebsocketClient):
             timeout (int, option): Timeout in seconds for websockets
         """
         WebsocketClient.__init__(
-            self, listener, host, port, api_key, ssl, loop, timeout, session
+            self, listener, host, port, api_key, ssl, loop, timeout, session, client_ssl=client_ssl
         )
 
     async def _loop_recv_internal(self, message: Any) -> None:
