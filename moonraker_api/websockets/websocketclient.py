@@ -90,6 +90,7 @@ class WebsocketClient:
         port: int = 7125,
         api_key: str | None = None,
         ssl: bool = False,
+        client_ssl: bool | None = None,
         loop: AbstractEventLoop = None,
         timeout: int = WEBSOCKET_CONNECTION_TIMEOUT,
         session: aiohttp.ClientSession = None,
@@ -109,6 +110,7 @@ class WebsocketClient:
         self.port = port
         self.api_key = api_key
         self.ssl = ssl
+        self.client_ssl = client_ssl
         self._timeout = timeout
         self.session = session
         self._loop = loop or asyncio.get_event_loop_policy().get_event_loop()
@@ -284,6 +286,7 @@ class WebsocketClient:
                     receive_timeout=self._timeout,
                     autoping=True,
                     heartbeat=self._timeout / 3,
+                    ssl=self.client_ssl,
                 ) as websocket:
                     self._ws = websocket
                     self.state = WEBSOCKET_STATE_CONNECTED
