@@ -61,7 +61,7 @@ class MoonrakerClient(WebsocketClient):
             timeout (int, option): Timeout in seconds for websockets
         """
         WebsocketClient.__init__(
-            self, listener, host, port, api_key, ssl, loop, timeout, session, client_ssl=client_ssl
+            self, listener, host, port, api_key, ssl, client_ssl, loop, timeout, session
         )
 
     async def _loop_recv_internal(self, message: Any) -> None:
